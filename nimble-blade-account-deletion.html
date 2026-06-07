@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nimble Blade Player Account Deletion — Nimble Blade Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&family=Barlow+Condensed:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #0b0c10; --bg2: #111318; --bg3: #181b22; --accent-gold: #c8922a; --text: #e8e0d0; --text-muted: #7a7468; --border: rgba(200,146,42,0.15); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Barlow', sans-serif; font-weight: 300; line-height: 1.6; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 3rem; border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.12em; color: var(--accent-gold); text-decoration: none; }
+  .nav-back { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  .nav-back:hover { color: var(--text); }
+
+  main { max-width: 720px; margin: 0 auto; padding: 5rem 2rem; }
+  .page-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 0.75rem; }
+  .divider { width: 60px; height: 1px; background: var(--accent-gold); margin: 0 0 1.5rem; }
+  h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3.2rem); letter-spacing: 0.05em; margin-bottom: 2rem; }
+
+  .warning-box { background: rgba(192,57,43,0.08); border: 1px solid rgba(192,57,43,0.3); padding: 1.25rem 1.5rem; margin-bottom: 3rem; }
+  .warning-box p { font-size: 0.95rem; color: #e07060; line-height: 1.6; }
+
+  .intro { font-size: 1rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 3rem; }
+  .intro a { color: var(--accent-gold); }
+
+  .steps { display: flex; flex-direction: column; margin-bottom: 3rem; }
+  .step { display: grid; grid-template-columns: 48px 1fr; gap: 1.5rem; align-items: flex-start; padding: 2rem 0; border-bottom: 1px solid var(--border); }
+  .step:first-child { border-top: 1px solid var(--border); }
+  .step-num { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--accent-gold); line-height: 1; }
+  .step-content p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem; }
+  .step-content img { width: 100%; max-width: 480px; display: block; border: 1px solid var(--border); margin-top: 0.75rem; }
+
+  .contact-box { background: var(--bg2); border: 1px solid var(--border); padding: 2rem; }
+  .contact-box p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; }
+  .contact-box a { color: var(--accent-gold); }
+
+  @media (max-width: 600px) { nav { padding: 1rem 1.5rem; } }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Nimble Blade Studio</a>
+  <a href="account-deletion.html" class="nav-back">← Account Deletion</a>
+</nav>
+<main>
+  <p class="page-label">Player Data</p>
+  <div class="divider"></div>
+  <h1>Nimble Blade Player Account Deletion</h1>
+
+  <p class="intro">To remove your Nimble Blade player account use Nimble Blade application.</p>
+
+  <div class="warning-box">
+    <p>After the deletion your player account and all associated data will be permanently lost and can not be recovered!</p>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-content">
+        <p>To delete the account in the application tap the profile icon at the game main screen (see the red circle at the screen shot)</p>
+        <img src="images/nimble-blade/del1.png" alt="Nimble Blade main screen — tap profile icon">
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-content">
+        <p>At the profile screen tap the "Delete account" button</p>
+        <img src="images/nimble-blade/del2.png" alt="Nimble Blade profile screen — Delete account button">
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-content">
+        <p>At the account deletion screen fill in your player name and tap "Delete account" button. After data will be deleted the application will quit automatically.</p>
+        <img src="images/nimble-blade/del3.png" alt="Nimble Blade account deletion confirmation screen">
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-box">
+    <p>If you need help with your account removal please write a mail to <a href="mailto:info@nimbleblade.games?subject=ACCOUNT%20DELETION">info@nimbleblade.games</a> with "ACCOUNT DELETION" subject</p>
+  </div>
+</main>
+</body>
+</html>

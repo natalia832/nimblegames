@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nimble Blade Studio — Craft, Crush and Master the Blade</title>
+<meta name="description" content="Nimble Blade Studio — creators of Casual Blade and Nimble Blade. Mobile swordplay games with real physics-based combat.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&family=Barlow+Condensed:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0c10; --bg2: #111318; --bg3: #181b22;
+    --accent-gold: #c8922a;
+    --text: #e8e0d0; --text-muted: #7a7468;
+    --border: rgba(200,146,42,0.15);
+    --max: 1100px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Barlow', sans-serif; font-weight: 300; line-height: 1.6; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: linear-gradient(to bottom, rgba(11,12,16,0.98), transparent);
+    backdrop-filter: blur(4px);
+  }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.12em; color: var(--accent-gold); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 6rem 2rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(139,26,26,0.2) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 40% at 50% 100%, rgba(200,146,42,0.07) 0%, transparent 70%);
+  }
+  .hero-eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
+  .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 12vw, 10rem); line-height: 0.9; letter-spacing: 0.04em; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s 0.4s forwards; }
+  .hero-title span { color: var(--accent-gold); }
+  .hero-sub { font-size: clamp(1rem, 2vw, 1.15rem); font-weight: 300; color: var(--text-muted); max-width: 480px; margin: 0 auto 3rem; opacity: 0; animation: fadeUp 0.8s 0.6s forwards; }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; opacity: 0; animation: fadeUp 0.8s 0.8s forwards; }
+  .hero-scroll { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); opacity: 0; animation: fadeUp 0.8s 1.2s forwards; }
+  .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--accent-gold), transparent); animation: scrollPulse 2s ease-in-out infinite; }
+
+  /* BUTTONS */
+  .btn { display: inline-flex; align-items: center; gap: 0.6rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 0.85rem 2rem; border: 1px solid; transition: all 0.25s; }
+  .btn-primary { background: var(--accent-gold); border-color: var(--accent-gold); color: #0b0c10; }
+  .btn-primary:hover { background: transparent; color: var(--accent-gold); }
+  .btn-outline { background: transparent; border-color: rgba(200,146,42,0.4); color: var(--text); }
+  .btn-outline:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+  .btn-sm { padding: 0.6rem 1.25rem; font-size: 0.8rem; }
+
+  .btn-store { display: inline-flex; align-items: center; gap: 0.75rem; background: var(--bg3); border: 1px solid var(--border); color: var(--text); padding: 0.7rem 1.4rem; text-decoration: none; transition: all 0.25s; font-family: 'Barlow', sans-serif; }
+  .btn-store:hover { border-color: var(--accent-gold); }
+  .btn-store svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .btn-store-text { display: flex; flex-direction: column; line-height: 1.2; }
+  .btn-store-text small { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
+  .btn-store-text span { font-size: 0.85rem; font-weight: 600; }
+
+  .section-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 0.5rem; }
+  .divider { width: 60px; height: 1px; background: var(--accent-gold); margin: 0 auto 1.5rem; }
+
+  /* GAMES SECTION */
+  .games { padding: 7rem 2rem; }
+  .games-header { text-align: center; margin-bottom: 5rem; }
+  .games-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4.5rem); letter-spacing: 0.05em; }
+
+  /* GAME BLOCK — full width Steam-style */
+  .game-block {
+    max-width: var(--max);
+    margin: 0 auto 6rem;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  /* Top media: video full width */
+  .game-media { position: relative; width: 100%; aspect-ratio: 16/7; background: #000; overflow: hidden; }
+  .game-badge { position: absolute; top: 1rem; left: 1rem; z-index: 10; font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.3rem 0.8rem; border: 1px solid var(--accent-gold); color: var(--accent-gold); background: rgba(11,12,16,0.85); }
+
+  .yt-preview { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-decoration: none; overflow: hidden; }
+  .yt-preview img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s, filter 0.4s; filter: brightness(0.8); }
+  .yt-preview:hover img { transform: scale(1.03); filter: brightness(0.55); }
+  .yt-play-btn { position: relative; z-index: 2; filter: drop-shadow(0 4px 20px rgba(0,0,0,0.7)); transition: transform 0.2s; }
+  .yt-preview:hover .yt-play-btn { transform: scale(1.1); }
+  .yt-label { position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.55); z-index: 2; white-space: nowrap; }
+
+  /* Screenshot strip */
+  .game-strip { display: flex; gap: 6px; overflow-x: auto; padding: 8px 12px; background: #000; border-top: 1px solid rgba(255,255,255,0.06); scrollbar-width: thin; scrollbar-color: var(--accent-gold) transparent; }
+  .game-strip::-webkit-scrollbar { height: 3px; }
+  .game-strip::-webkit-scrollbar-thumb { background: var(--accent-gold); }
+  .game-strip a { flex: 0 0 auto; width: 148px; height: 83px; overflow: hidden; display: block; opacity: 0.75; transition: opacity 0.2s, outline 0.2s; outline: 1px solid transparent; }
+  .game-strip a:hover { opacity: 1; outline-color: var(--accent-gold); }
+  .game-strip img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* Info row */
+  .game-info {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 2.5rem;
+    align-items: start;
+    padding: 2.5rem 2.5rem;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+  }
+  .game-identity { display: flex; flex-direction: column; gap: 0.5rem; min-width: 160px; }
+  .game-logo-img { max-height: 52px; max-width: 220px; object-fit: contain; object-position: left; filter: brightness(1.1); display: block; }
+  .game-tagline { font-size: 0.8rem; color: var(--accent-gold); font-style: italic; letter-spacing: 0.05em; }
+  .game-stats-row { display: flex; gap: 1.5rem; margin-top: 0.75rem; }
+  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--accent-gold); line-height: 1; }
+  .stat-label { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+
+  .game-desc-col { border-left: 1px solid var(--border); border-right: 1px solid var(--border); padding: 0 2.5rem; }
+  .game-desc-col p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1rem; }
+  .game-features { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+  .game-features li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: var(--text); }
+  .game-features li::before { content: '⚔'; color: var(--accent-gold); font-size: 0.65rem; margin-top: 0.3rem; flex-shrink: 0; }
+
+  .game-actions-col { display: flex; flex-direction: column; gap: 0.75rem; min-width: 160px; }
+
+  /* STUDIO */
+  .studio { padding: 7rem 2rem; background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .studio-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+  .studio h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: 0.05em; margin-bottom: 1.5rem; }
+  .studio p { color: var(--text-muted); font-size: 1rem; line-height: 1.8; max-width: 620px; margin: 0 auto 3rem; }
+  .studio-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; border: 1px solid var(--border); overflow: hidden; max-width: 680px; margin: 0 auto; }
+  .studio-stat { padding: 2rem; background: var(--bg); text-align: center; }
+  .studio-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--accent-gold); line-height: 1; }
+  .studio-stat-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-top: 0.4rem; }
+
+  /* FOOTER */
+  footer { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
+  .footer-inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 3rem; flex-wrap: wrap; padding-bottom: 3rem; border-bottom: 1px solid var(--border); margin-bottom: 2rem; }
+  .footer-brand .nav-logo { display: block; margin-bottom: 0.75rem; font-size: 1.2rem; }
+  .footer-brand p { font-size: 0.85rem; color: var(--text-muted); max-width: 220px; }
+  .footer-links h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1rem; }
+  .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .footer-links a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--accent-gold); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-bottom p { font-size: 0.78rem; color: var(--text-muted); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes scrollPulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .game-media { aspect-ratio: 16/9; }
+    .game-info { grid-template-columns: 1fr; gap: 1.5rem; padding: 1.5rem; }
+    .game-desc-col { border: none; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1.25rem 0; }
+    .studio-stats { grid-template-columns: 1fr; }
+    .footer-inner { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Nimble Blade Studio</a>
+  <ul class="nav-links">
+    <li><a href="#games">Games</a></li>
+    <li><a href="#studio">Studio</a></li>
+    <li><a href="account-deletion.html">Account Deletion</a></li>
+    <li><a href="mailto:info@nimbleblade.games">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <p class="hero-eyebrow">Nimble Blade Studio · Belgrade</p>
+  <h1 class="hero-title">Craft.<br><span>Crush.</span><br>Master.</h1>
+  <p class="hero-sub">We build mobile swordplay games where every swing matters — physics-based combat rooted in real martial arts.</p>
+  <div class="hero-cta">
+    <a href="#games" class="btn btn-primary">Explore Our Games</a>
+    <a href="mailto:info@nimbleblade.games" class="btn btn-outline">Get in Touch</a>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span>Scroll</span></div>
+</section>
+
+<section class="games" id="games">
+  <div class="games-header">
+    <p class="section-label">Our Games</p>
+    <div class="divider"></div>
+    <h2>Two Worlds.<br>One Blade.</h2>
+  </div>
+
+  <!-- CASUAL BLADE -->
+  <div class="game-block">
+    <div class="game-media">
+      <div class="game-badge">Available Now · Android</div>
+      <a href="https://www.youtube.com/watch?v=kx4iDcl2Bfk" target="_blank" rel="noopener" class="yt-preview">
+        <img src="https://img.youtube.com/vi/kx4iDcl2Bfk/maxresdefault.jpg" alt="Casual Blade trailer" onerror="this.src='https://img.youtube.com/vi/kx4iDcl2Bfk/hqdefault.jpg'">
+        <div class="yt-play-btn"><svg viewBox="0 0 68 48" width="72" height="52"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#ff0000"/><path d="M45 24 27 14v20" fill="#fff"/></svg></div>
+        <div class="yt-label">Watch Trailer</div>
+      </a>
+    </div>
+    <div class="game-strip">
+      <a href="images/casual-blade/7.png" target="_blank"><img src="images/casual-blade/7.png" alt="Multiplayer battle"></a>
+      <a href="images/casual-blade/1.png" target="_blank"><img src="images/casual-blade/1.png" alt="PvE combat"></a>
+      <a href="images/casual-blade/2.png" target="_blank"><img src="images/casual-blade/2.png" alt="Arena"></a>
+      <a href="images/casual-blade/5.png" target="_blank"><img src="images/casual-blade/5.png" alt="Robot upgrades"></a>
+      <a href="images/casual-blade/8.png" target="_blank"><img src="images/casual-blade/8.png" alt="Robot crafting"></a>
+      <a href="images/casual-blade/4.png" target="_blank"><img src="images/casual-blade/4.png" alt="Duel"></a>
+      <a href="images/casual-blade/6.png" target="_blank"><img src="images/casual-blade/6.png" alt="Special attack"></a>
+      <a href="images/casual-blade/3.png" target="_blank"><img src="images/casual-blade/3.png" alt="Combat"></a>
+    </div>
+    <div class="game-info">
+      <div class="game-identity">
+        <img class="game-logo-img" src="images/casual-blade/splashscreen_landscape.png" alt="Casual Blade">
+        <p class="game-tagline">Craft, Crush and Master the Blade!</p>
+        <div class="game-stats-row">
+          <div><div class="stat-num">750K+</div><div class="stat-label">Installs</div></div>
+          <div><div class="stat-num">4.75★</div><div class="stat-label">Rating</div></div>
+        </div>
+      </div>
+      <div class="game-desc-col">
+        <p>The ultimate mobile swordplay experience — craft unique robots, master physics-based combat, and battle online with friends to claim the top spot.</p>
+        <ul class="game-features">
+          <li>Physics-based sword combat with HEMA-accurate motion capture</li>
+          <li>Build and customize unique robots from modular parts</li>
+          <li>Real-time online PvP and multiplayer battles</li>
+          <li>Gacha progression with deep upgrade mechanics</li>
+        </ul>
+      </div>
+      <div class="game-actions-col">
+        <a href="https://play.google.com/store/apps/details?id=com.NimbleBladeStudio.CasualBlade" class="btn-store" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76a2 2 0 0 0 2.07-.22l11.59-6.7-2.68-2.68-11 11zm16.04-9.62L16.5 12.5l2.72-1.64 3 1.73a1.5 1.5 0 0 1 0 2.6l-3 1.72zM2 1.46a2 2 0 0 0-.5 1.35v18.38A2 2 0 0 0 2 22.54L14.16 12 2 1.46zm11.59 9l-2.72-2.73L2.25.47A2 2 0 0 0 .5 1l13.27 9.93z"/></svg>
+          <div class="btn-store-text"><small>Get it on</small><span>Google Play</span></div>
+        </a>
+        <a href="casual-blade-account-deletion.html" class="btn btn-outline btn-sm">Account Deletion</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- NIMBLE BLADE -->
+  <div class="game-block">
+    <div class="game-media">
+      <div class="game-badge">Available Now · Android</div>
+      <a href="https://www.youtube.com/watch?v=P-4babqki7E" target="_blank" rel="noopener" class="yt-preview">
+        <img src="https://img.youtube.com/vi/P-4babqki7E/maxresdefault.jpg" alt="Nimble Blade trailer" onerror="this.src='https://img.youtube.com/vi/P-4babqki7E/hqdefault.jpg'">
+        <div class="yt-play-btn"><svg viewBox="0 0 68 48" width="72" height="52"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#ff0000"/><path d="M45 24 27 14v20" fill="#fff"/></svg></div>
+        <div class="yt-label">Watch Trailer</div>
+      </a>
+    </div>
+    <div class="game-strip">
+      <a href="images/nimble-blade/Screenshot_20260526-195335.png" target="_blank"><img src="images/nimble-blade/Screenshot_20260526-195335.png" alt="Duel combat"></a>
+      <a href="images/nimble-blade/Screenshot_20260526-195149.png" target="_blank"><img src="images/nimble-blade/Screenshot_20260526-195149.png" alt="Arena fight"></a>
+      <a href="images/nimble-blade/Screenshot_20260526-195306.png" target="_blank"><img src="images/nimble-blade/Screenshot_20260526-195306.png" alt="Close combat"></a>
+      <a href="images/nimble-blade/Screenshot_20260526-195342.png" target="_blank"><img src="images/nimble-blade/Screenshot_20260526-195342.png" alt="Battle"></a>
+      <a href="images/nimble-blade/Screenshot_20260526-195923.png" target="_blank"><img src="images/nimble-blade/Screenshot_20260526-195923.png" alt="Character training"></a>
+      <a href="images/nimble-blade/Screenshot_20260526-195511.png" target="_blank"><img src="images/nimble-blade/Screenshot_20260526-195511.png" alt="Weapon selection"></a>
+      <a href="images/nimble-blade/Screenshot_20260526-195552.png" target="_blank"><img src="images/nimble-blade/Screenshot_20260526-195552.png" alt="Main screen"></a>
+      <a href="images/nimble-blade/Screenshot_20260526-195610.png" target="_blank"><img src="images/nimble-blade/Screenshot_20260526-195610.png" alt="Gameplay"></a>
+    </div>
+    <div class="game-info">
+      <div class="game-identity">
+        <img class="game-logo-img" src="images/nimble-blade/logo_blckF.png" alt="Nimble Blade">
+        <p class="game-tagline">Master the art of the medieval sword</p>
+        <div class="game-stats-row">
+          <div><div class="stat-num">HEMA</div><div class="stat-label">Combat</div></div>
+          <div><div class="stat-num">Android</div><div class="stat-label">Platform</div></div>
+        </div>
+      </div>
+      <div class="game-desc-col">
+        <p>Rooted in the traditions of HEMA — Historical European Martial Arts — Nimble Blade brings authentic medieval swordsmanship to your mobile device.</p>
+        <ul class="game-features">
+          <li>Authentic medieval combat with motion-captured HEMA techniques</li>
+          <li>Master swords, longswords, zweihanders, shields and more</li>
+          <li>Skill-based gameplay rewarding precision and timing</li>
+          <li>Challenge opponents in competitive online duels</li>
+        </ul>
+      </div>
+      <div class="game-actions-col">
+        <a href="https://play.google.com/store/apps/details?id=com.NimbleBladeStudio.NimbleBlade&hl=en" class="btn-store" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76a2 2 0 0 0 2.07-.22l11.59-6.7-2.68-2.68-11 11zm16.04-9.62L16.5 12.5l2.72-1.64 3 1.73a1.5 1.5 0 0 1 0 2.6l-3 1.72zM2 1.46a2 2 0 0 0-.5 1.35v18.38A2 2 0 0 0 2 22.54L14.16 12 2 1.46zm11.59 9l-2.72-2.73L2.25.47A2 2 0 0 0 .5 1l13.27 9.93z"/></svg>
+          <div class="btn-store-text"><small>Get it on</small><span>Google Play</span></div>
+        </a>
+        <a href="nimble-blade-account-deletion.html" class="btn btn-outline btn-sm">Account Deletion</a>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<section class="studio" id="studio">
+  <div class="studio-inner">
+    <p class="section-label">About Us</p>
+    <div class="divider"></div>
+    <h2>The Studio Behind the Blade</h2>
+    <p>Based in Belgrade, Serbia — a small team of swordplay enthusiasts, engineers and artists obsessed with bringing authentic martial arts to mobile gaming. Every animation is motion-captured by real HEMA practitioners.</p>
+    <div class="studio-stats">
+      <div class="studio-stat"><div class="studio-stat-num">5+</div><div class="studio-stat-label">Years in Game Dev</div></div>
+      <div class="studio-stat"><div class="studio-stat-num">2</div><div class="studio-stat-label">Games Shipped</div></div>
+      <div class="studio-stat"><div class="studio-stat-num">750K+</div><div class="studio-stat-label">Players Worldwide</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="nav-logo">Nimble Blade Studio</a>
+      <p>Craft, Crush and Master the Blade.<br>Belgrade, Serbia.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Games</h4>
+      <ul>
+        <li><a href="#games">Casual Blade</a></li>
+        <li><a href="#games">Nimble Blade</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="casual-blade-account-deletion.html">Casual Blade — Delete Account</a></li>
+        <li><a href="nimble-blade-account-deletion.html">Nimble Blade — Delete Account</a></li>
+        <li><a href="mailto:info@nimbleblade.games">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="mailto:info@nimbleblade.games">info@nimbleblade.games</a></li>
+        <li><a href="https://t.me/SergStrelkov" target="_blank" rel="noopener">Telegram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Nimble Blade Studio. All rights reserved.</p>
+    <p style="font-size:0.72rem;">Belgrade, Serbia · Cara Nikolaja II, 11</p>
+  </div>
+</footer>
+
+</body>
+</html>
